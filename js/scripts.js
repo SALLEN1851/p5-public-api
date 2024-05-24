@@ -43,10 +43,10 @@ function displayUsers(users) {
 
 // Create a modal window
 
-function emptyModal() {
-	const modalSection = document.createElement('section');
-	modalSection.classList.add('modal-container');
-	modalSection.setAttribute('data-user-index', '');
+function emptyModal() { 
+	const modalSection = document.createElement('section'); 
+	modalSection.classList.add('modal-container');  
+	modalSection.setAttribute('data-user-index', ''); 
 	const modalHTML = `
 
     <div class="modal">
@@ -66,17 +66,17 @@ function emptyModal() {
   
   `;
 
-	modalSection.innerHTML = modalHTML;
-	modalSection.style.display = 'none';
-	document.body.insertBefore(modalSection, document.querySelector('script'));
+	modalSection.innerHTML = modalHTML; // insert the HTML into the modal section
+	modalSection.style.display = 'none'; // hide the modal by default
+	document.body.insertBefore(modalSection, document.querySelector('script')); // insert the modal section before the script tag
 }
 
 emptyModal();
 
 function modalData(user, index) {
-    const modal = document.querySelector('.modal-container');
+    const modal = document.querySelector('.modal-container'); // get a reference to the modal container
     if (!user) {
-      console.error('User data not found for index:', index);
+      console.error('User data not found for index:', index); 
       return;
     }
     
@@ -98,7 +98,7 @@ function modalData(user, index) {
       email.textContent = user.email;
       location.textContent = user.location.country;
       cell.textContent = user.cell;
-    address.innerText = `${user.location.street.number} ${user.location.street.name}
+      address.innerText = `${user.location.street.number} ${user.location.street.name}
       ${user.location.city}, ${user.location.state}, ${user.nat}
       ${user.location.postcode}`;
   
@@ -108,7 +108,7 @@ function modalData(user, index) {
       modal.style.display = 'block';
   }
   
-
+// Open the modal window
   document.addEventListener('click', (event) => {
     if (event.target.closest('.card')) {
       const card = event.target.closest('.card');
@@ -117,11 +117,19 @@ function modalData(user, index) {
         return;
       }
       const userIndex = card.dataset.index;
-      console.log('Card clicked. User index:', userIndex); // Debugging line
+      console.log('Card clicked. User index:', userIndex); 
       if (users[userIndex]) {
         modalData(users[userIndex], userIndex);
       } else {
         console.error('User data not found for index:', userIndex);
       }
+    }
+  });
+
+  // Close the modal window
+  document.addEventListener('click', (event) => {
+    const modal = document.querySelector('.modal-container');
+    if (event.target.id === 'modal-close-btn') {
+      modal.style.display = 'none';
     }
   });
