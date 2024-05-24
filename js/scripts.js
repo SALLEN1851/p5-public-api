@@ -14,7 +14,7 @@ async function getUsers() {
 
 function displayUsers(users) {
     const usersContainer = document.getElementById('gallery');
-    usersContainer.innerHTML = ''; 
+    usersContainer.insertAdjacentHTML('afterbegin', '');
 
     users.forEach((user, index) => { // loop through each user
       const div = document.createElement('div'); // create a new div
@@ -66,7 +66,7 @@ function emptyModal() {
   
   `;
 
-	modalSection.innerHTML = modalHTML; // insert the HTML into the modal section
+	modalSection.insertAdjacentHTML('beforeend', modalHTML); // insert the HTML into the modal section
 	modalSection.style.display = 'none'; // hide the modal by default
 	document.body.insertBefore(modalSection, document.querySelector('script')); // insert the modal section before the script tag
 }
@@ -99,7 +99,7 @@ function modalData(user, index) {
       location.textContent = user.location.country;
       phone.textContent = user.phone;
       address.innerText = `${user.location.street.number} ${user.location.street.name}
-      ${user.location.city}, ${user.location.state}, ${user.nat}
+      ${user.location.city}, ${user.location.state},
       ${user.location.postcode}`;
   
       // format the birthday to a local data format
