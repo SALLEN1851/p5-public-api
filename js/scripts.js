@@ -4,7 +4,7 @@ let users = [];
 async function getUsers() {
   const response = await fetch('https://randomuser.me/api/?inc=picture,location,phone,gender,name,email,dob&results=12');
   const data = await response.json();
-  const users = data.results;
+  users = data.results;
   displayUsers(users);
     console.log(users);
   return users;
@@ -39,3 +39,89 @@ function displayUsers(users) {
   }
   
   getUsers();
+
+
+// Create a modal window
+
+function emptyModal() {
+	const modalSection = document.createElement('section');
+	modalSection.classList.add('modal-container');
+	modalSection.setAttribute('data-user-index', '');
+	const modalHTML = `
+
+    <div class="modal">
+        <button type="button" id="modal-close-btn" class="modal-close-btn">close</button>
+        <address class="modal-info-container">
+          <img id="profile" class="modal-img" src="" alt="profile picture">
+          <h3 id="name" class="modal-name cap"></h3>
+          <p id="email" class="modal-text"></p>
+          <p id="location" class="modal-text cap"></p>
+          <div class="modal__address-details">
+            <p id="cell" class="modal-text"></p>
+            <p id="address" class="modal-text"></p>
+            <p id="dob" class="modal-text"></p>
+          </div>
+        </address>
+    </div>
+  
+  `;
+
+	modalSection.innerHTML = modalHTML;
+	modalSection.style.display = 'none';
+	document.body.insertBefore(modalSection, document.querySelector('script'));
+}
+
+emptyModal();
+
+function modalData(user, index) {
+    const modal = document.querySelector('.modal-container');
+    if (!user) {
+      console.error('User data not found for index:', index);
+      return;
+    }
+    
+    // Update the custom data attribute with the user's index
+      modal.setAttribute('data-user-index', index);
+  
+      // get a reference to each HTML element that needs to be populated
+      const profile = document.getElementById('profile');
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const location = document.getElementById('location');
+      const cell = document.getElementById('cell');
+      const address = document.getElementById('address');
+      const dob = document.getElementById('dob');
+  
+      // populate the HTML elements with the user data
+      profile.src = user.picture.large;
+      name.textContent = `${user.name.first} ${user.name.last}`;
+      email.textContent = user.email;
+      location.textContent = user.location.country;
+      cell.textContent = user.cell;
+    address.innerText = `${user.location.street.number} ${user.location.street.name}
+      ${user.location.city}, ${user.location.state}, ${user.nat}
+      ${user.location.postcode}`;
+  
+      // format the birthday to a local data format
+      const birthday = new Date(user.dob.date);
+      dob.innerText = `Birthday: ${birthday.toLocaleDateString()}`;
+      modal.style.display = 'block';
+  }
+  
+
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('.card')) {
+      const card = event.target.closest('.card');
+      if (!card) {
+        console.error('Card element not found');
+        return;
+      }
+      const userIndex = card.dataset.index;
+      console.log('Card clicked. User index:', userIndex); // Debugging line
+      if (users[userIndex]) {
+        modalData(users[userIndex], userIndex);
+      } else {
+        console.error('User data not found for index:', userIndex);
+      }
+    }
+  });
