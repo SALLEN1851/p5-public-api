@@ -57,7 +57,7 @@ function emptyModal() {
           <p id="email" class="modal-text"></p>
           <p id="location" class="modal-text cap"></p>
           <div class="modal__address-details">
-            <p id="cell" class="modal-text"></p>
+            <p id="phone" class="modal-text"></p>
             <p id="address" class="modal-text"></p>
             <p id="dob" class="modal-text"></p>
           </div>
@@ -88,7 +88,7 @@ function modalData(user, index) {
       const name = document.getElementById('name');
       const email = document.getElementById('email');
       const location = document.getElementById('location');
-      const cell = document.getElementById('cell');
+      const phone = document.getElementById('phone');
       const address = document.getElementById('address');
       const dob = document.getElementById('dob');
   
@@ -97,7 +97,7 @@ function modalData(user, index) {
       name.textContent = `${user.name.first} ${user.name.last}`;
       email.textContent = user.email;
       location.textContent = user.location.country;
-      cell.textContent = user.cell;
+      phone.textContent = user.phone;
       address.innerText = `${user.location.street.number} ${user.location.street.name}
       ${user.location.city}, ${user.location.state}, ${user.nat}
       ${user.location.postcode}`;
