@@ -28,6 +28,10 @@ This project fetches and displays 12 random users from The Random User Generator
         -HTML
         -CSS
 
+### View Project 
+        [Live Demo](https://sallen1851.github.io/p5-public-api/)
+
+
 ### Code Explanation
 
 #### JavaScript (`scripts.js`)
