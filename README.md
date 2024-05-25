@@ -29,7 +29,7 @@ This project fetches and displays 12 random users from The Random User Generator
         -CSS
 
 ### View Project 
-        [Live Demo](https://sallen1851.github.io/p5-public-api/)
+[Live Demo](https://sallen1851.github.io/p5-public-api/)
 
 
 ### Code Explanation
